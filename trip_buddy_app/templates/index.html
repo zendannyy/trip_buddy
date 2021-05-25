@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Login and Register</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h1>Register</h1>
+                {% if messages %}
+                    {% if request.session.check == 'registered' %}
+                        {% for message in messages %}
+                            <p><span>**{{message}}</span></p>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+                <form action="/register" method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputFirstname">Name</label>
+                        <input type="text" class="form-control" name="r_name" value="{{request.session.name}}" required>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail">Username</label>
+                          <input type="text" class="form-control" name="r_uname" value="{{request.session.uname}}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail">Email</label>
+                          <input type="text" class="form-control" name="email" value="{{request.session.email}}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword">Password</label>
+                          <input type="password" class="form-control" name="r_password" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputPasswordcheck">Confirm Password</label>
+                          <input type="password" class="form-control" name="r_passwordcheck" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Register</button>
+                    <a href="/logout" class="btn btn-secondary">Clear</a>
+                </form>
+            </div>
+            <div class="col-6">
+                <h1>Login</h1>
+                {% if messages %}
+                    {% if request.session.check == 'logged_in' %}
+                        {% for message in messages %}
+                            <p><span>**{{message}}</span></p>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+                <form action="/login" method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail">Username</label>
+                        <input type="text" class="form-control" name="l_uname" value="{{request.session.luname}}" required>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword">Password</label>
+                          <input type="password" class="form-control" name="l_password" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Login</button>
+                    <a href="/logout" class="btn btn-secondary">Clear</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

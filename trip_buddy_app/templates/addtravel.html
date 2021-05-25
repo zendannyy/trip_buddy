@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Add Plan</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-md-auto">
+                <a href="/travels" class="home">Home</a>
+            </div>
+            <div class="col-md-auto">
+                <a href="/logout" class="logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Add a Trip</h1>
+        <div class="fieldform col-4">
+        <form action="/travels/save" method="POST">
+            {% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p><span>**{{message}}</span></p>
+                {% endfor %}
+            {% endif %}
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input type="text" class="form-control" name="dest" value="{{request.session.dest}}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" name="desc" value="{{request.session.desc}}" required>
+            </div>
+            <div class="form-group">
+                <label for="destination">Travel Date From</label>
+                <input type="date" class="form-control" name="datefrom" value="{{request.session.datefrom}}" required>
+            </div>
+            <div class="form-group">
+                <label for="destination">Travel Date To</label>
+                <input type="date" class="form-control" name="dateto" value="{{request.session.dateto}}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+    </div>
+</body>
+</html>

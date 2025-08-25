@@ -14,17 +14,17 @@ class ValidationManager(models.Manager):
             errors["r_uname"] = "Username should be at least 3 characters"
             request.session['uname'] = ""
         elif len(unamecheck) > 0:
-            errors['unamecheck'] = "Username has existing in the system, Please change."
+            errors['unamecheck'] = "Username is already existing in the system, Please use a different one."
 
         users_with_email = Users.objects.filter(
             email=post_data['email'])
         if len(users_with_email) >= 1:
-            errors['dupe'] = "Email is taken, choose another"
+            errors['dupe'] = "Email is taken, please choose another"
 
         if len(post_data['email']) < 6:
             errors['email'] = "Email is too short, 6 or more characters"
-        if len(post_data['r_password']) < 8:
-            errors['r_pass'] = "Password should be at least 8 characters"
+        if len(post_data['r_password']) < 12:
+            errors['r_pass'] = "Password should be at least 12 characters"
         elif post_data['r_password'] != post_data['r_passwordcheck']:
             errors['r_passcheck'] = "Password does not match"         
         return errors
@@ -46,7 +46,7 @@ class ValidationManager(models.Manager):
                     errors['lpass'] = "Incorrect password, please try again."
             else:
                 request.session['luname'] = ""
-                errors['luname'] = "Username doesn't exist. Please regiester first."        
+                errors['luname'] = "Username doesn't exist. Please register first."        
         return errors
     
     def recordvalidator(self, post_data, request):

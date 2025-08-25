@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Travel Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-md-auto">
+                <a href="/logout" class="btn btn-secondary btn-sm">Logout</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Hello, {{user.name}}!</h1>
+        <div class="your_trip">
+            <h5>Your Trip Schedules</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Travel Start Date</th>
+                        <th scope="col">Travel End Date</th>
+                        <th scope="col">Plan</th>
+                        <th scope="col">Do You Want to Unjoin or Delete?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trip in your_trip %}
+                    <tr>
+                        <td><a href="/destination/{{trip.id}}">{{trip.destination}}</a></td>
+                        <td>{{trip.datefrom|date:'F d, Y'}}</td>
+                        <td>{{trip.dateto|date:'F d, Y'}}</td>
+                        <td>{{trip.description}}</td>
+                        {% if trip.user.id != request.session.login_id %}
+                            <td><a href="/unjointrip/{{trip.id}}">Unjoin</a></td>
+                        {% else %}
+                        <td><a href="/delete/{{trip.id}}" style="color: red;">Delete</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="other_trip">
+            <h5>Other User's Travel Plans</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Travel Travel Start Date</th>
+                        <th scope="col">Travel End Date</th>
+                        <th scope="col">Do You Want to Join?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trip in other_trip %}
+                    <tr>
+                        <td>{{trip.user.name}}</td>
+                        <td><a href="/destination/{{trip.id}}">{{trip.destination}}</a></td>
+                        <td>{{trip.datefrom|date:'F d, Y'}}</td>
+                        <td>{{trip.dateto|date:'F d, Y'}}</td>
+                        <td><a href="/jointrip/{{trip.id}}">Join</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a href="/travels/add" class="btn btn-primary addtravel">Add Travel Plan</a>
+    </div>
+</body>
+</html>

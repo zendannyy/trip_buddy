@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Destination</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-md-auto">
+                <a href="/travels" class="btn btn-secondary btn-sm">Home</a>
+            </div>
+            <div class="col-md-auto">
+                <a href="/logout" class="btn btn-secondary btn-sm">Logout</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>{{tripinfo.destination}}</h1>
+        <div class="row">
+            <div class="col">
+                <p>Planned By: {{tripinfo.user.name}}</p>
+                <p>Description: {{tripinfo.description}}</p>
+                <p>Travel Date From: {{tripinfo.datefrom|date:'F d, Y'}}</p>
+                <p>Travel Date To: {{tripinfo.dateto|date:'F d, Y'}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <h3>Other user's joining the trip:</h3>
+        </div>
+        <div class="row">
+            <div class="col">
+                {% for names in tripinfo.favoriter.all %}
+                    <p>{{names.name}}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

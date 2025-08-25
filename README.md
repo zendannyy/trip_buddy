@@ -3,7 +3,7 @@
 Sample project for planning travel
 
 POC validation for 
-    - user registration 
-    - user db
-    - booking travel
+    - user registration  
+    - user db  
+    - booking travel  
 

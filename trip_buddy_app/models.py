@@ -5,7 +5,10 @@ import datetime
 
 class ValidationManager(models.Manager):
     def registervalidator(self, post_data, request):
+        """validation for user registration
+        various checks ran for username, pw, email, and travel dates"""
         errors = {}
+        
         if len(post_data['r_name']) < 3:
             errors["r_name"] = "First name should be at least 3 characters"
             request.session['name'] = ""
@@ -30,6 +33,7 @@ class ValidationManager(models.Manager):
         return errors
             
     def loginvalidator(self, post_data, request):
+        """Validation for travel dates"""
         errors = {}
         if len(post_data['l_uname']) < 1:
             errors["l_uname"] = "Please enter the email"
